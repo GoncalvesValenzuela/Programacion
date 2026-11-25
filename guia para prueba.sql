@@ -259,6 +259,52 @@ ORDER BY department_id ASC, job_id DESC;
 --31
 --Inserte una nueva región en la tabla REGIONS con el identificador 5 y el nombre 'Oceania', omitiendo la lista explícita de columnas (inserción posicional).
 
+INSERT INTO regions (region_id,region_name)VALUES (5,'Oceania');
+
+--32
+--Registre un nuevo país en la tabla COUNTRIES indicando explícitamente los nombres de sus columnas: código 'CL', nombre 'Chile' e identificador de región 2 (Americas).
+
+INSERT INTO countries (country_id,country_name,region_id) VALUES ('CL','Chile',2);
+
+--33
+--Cree un nuevo puesto laboral en la tabla JOBS con código 'DA_SPEC', título 'Data Analytics Specialist', salario mínimo de 6500 y salario máximo de 12500.
+INSERT INTO jobs (job_id,job_title,min_salary,max_salary) VALUES ('DA_SPEC','Data Analytics Specialist',6500,12500);
+
+--34
+--Agregue una nueva oficina en la tabla LOCATIONS únicamente con sus columnas obligatorias y básicas: LOCATION_ID = 3300,
+--CITY = 'Santiago' y COUNTRY_ID = 'CL' (dejando dirección, código postal y estado/provincia como nulos de forma implícita).
+
+INSERT INTO locations (location_id,city,country_id) VALUES (3300,'Santiago','CL');
+
+--35
+--Registre un nuevo departamento en la tabla DEPARTMENTS con identificador 280, nombre 'Data Science', sin gerente asignado (NULL explícito) y ubicado en la sede 1700.
+
+INSERT INTO departments VALUES(280,'Data Science',NULL,1700);
+
+--36
+--Incorpore a un nuevo empleado en la tabla EMPLOYEES con ID 207, nombre 'Camila', apellido 'Valdes', correo 'CVALDES', teléfono '569.555.0199',
+--fecha de contratación '15-MAR-24', cargo 'IT_PROG', salario calculado como 5000 + 800, sin comisión (NULL), jefe directo 103 y departamento 60.
+
+INSERT INTO employees VALUES (207,'Camila','Valdes','CVALDES','569.555.0199','15-MAR-24','IT_PROG',(5000+800),NULL,103,60);
+
+--37
+--Registre al empleado número 208 llamado 'Mateo Rojas'
+--(correo 'MROJAS', teléfono '515.123.9988'), contratado con la fecha actual del sistema (SYSDATE), en el cargo 'SA_REP', con salario 7200, comisión 0.15, jefe 145 y departamento 80.
+
+INSERT INTO employees VALUES (208,'Mateo','Rojas','MROJAS','515.123.9988',SYSDATE,'SA_REP',7200,0.15,145,60);
+
+--38
+--Inserte un nuevo cargo en la tabla JOBS con código 'CLOUD_ARCH',
+--construyendo el título mediante concatenación de 'Cloud' || ' ' || 'Architect', con salario mínimo 9000 y salario máximo calculado como 9000 * 1.8.
+INSERT INTO jobs VALUES ('CLOUD_ARCH','Cloud' || ' ' || 'Architect',9000,(9000*1.8));
+
+--39
+--Crear una tabla histórica de respaldo con la misma estructura de la tabla
+--EMPLOYEES, llamada EMPLOYEES_HISTORY, copie en una sola sentencia todos los empleados del departamento 90 que perciben un salario superior a 15000.
+
+DROP TABLE employees_history;
+CREATE TABLE employees_history AS SELECT * FROM employees
+WHERE DEPARTMENT_ID = 90 AND SALARY > 15000;
 
 
 
